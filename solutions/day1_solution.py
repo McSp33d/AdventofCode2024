@@ -15,8 +15,9 @@ def sol2():
     left_list=sorted([int(i[0]) for i in data])
     right_list=sorted([int(i[1]) for i in data])
     similarity_score=0
-    for n in left_list:
-        similarity_score+=right_list.count(n)*n
+    for num in left_list:
+        matches = [x for x in right_list if x == num]
+        similarity_score+=len(matches)*num
     return similarity_score
 
 print("Solution 1:", sol1())
