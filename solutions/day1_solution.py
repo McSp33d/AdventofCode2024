@@ -12,12 +12,14 @@ def sol1():
 
 def sol2():
     data=[_.split("   ") for _ in read("../input/day1_input")]
-    left_list=sorted([int(i[0]) for i in data])
-    right_list=sorted([int(i[1]) for i in data])
+    left_list=[i[0] for i in data]
+    right_list=[i[1] for i in data]
+    #left_list=sorted([int(i[0]) for i in data])
+    #right_list=sorted([int(i[1]) for i in data])
     similarity_score=0
     for num in left_list:
         matches = [x for x in right_list if x == num]
-        similarity_score+=len(matches)*num
+        similarity_score+=len(matches)*int(num)
     return similarity_score
 
 print("Solution 1:", sol1())
