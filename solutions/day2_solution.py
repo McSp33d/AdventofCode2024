@@ -1,6 +1,6 @@
 from utils import *
 
-reports=read_int_lists("../input/day2_input")
+reports=readIntLists("../input/day2_input")
 
 def is_safe(report):
     if not report: return False
