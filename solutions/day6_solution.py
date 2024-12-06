@@ -32,7 +32,6 @@ def containsLoop(map, guard_pos, direction, positions_encountered):
         visited.add(new_pos)
     return False
 
-
 guard_position_direction=[]
 while isInside(map, guard_pos):
     guard_position_direction.append([guard_pos, direction])
