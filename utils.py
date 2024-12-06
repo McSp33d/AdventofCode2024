@@ -4,7 +4,7 @@ def read(filename):
 
 
 def readMap(filename):
-    return [[c for c in line] for line in read("../input/day6_input")]
+    return [[c for c in line] for line in read(filename)]
 
 def readIntLists(filename, delimiter=" "):
     data=readWords(filename, delimiter)
