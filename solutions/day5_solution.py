@@ -3,70 +3,70 @@ from utils import *
 data_ordering=read("../input/day5_input1.txt")
 
 #key smaller than value
-order={}
+page_order={}
 
 for line in data_ordering:
     num1, num2= line.split("|")
     num1=int(num1)
     num2=int(num2)
-    if num1 in order:
-        order[num1].append(num2)
+    if num1 in page_order:
+        page_order[num1].append(num2)
     else:
-        order[num1]=[num2]
+        page_order[num1]=[num2]
 
-def is_in_order(num1, num2):
-    if num1 in order and num2 in order[num1]:
+def is_in_order(page1, page2):
+    if page1 in page_order and page2 in page_order[page1]:
         return True
-    if num2 in order and num1 in order[num2]:
+    if page2 in page_order and page1 in page_order[page2]:
         return False
     return True
 
-proposed_orderings=readIntLists("../input/day5_input2.txt", ",")
+given_updates=readIntLists("../input/day5_input2.txt", ",")
 
-correct_order=[]
-incorrect_order=[]
-for proposed_ordering in proposed_orderings:
-    ordering_correct=True
-    for i in range(len(proposed_ordering)):
-        num1=proposed_ordering[i]
-        for j in range(i+1, len(proposed_ordering)):
-            num2=proposed_ordering[j]
-            if not is_in_order(num1, num2):
-                ordering_correct=False
+#categorize updates
+correct_updates=[]
+incorrect_updates=[]
+for update in given_updates:
+    update_in_correct_order=True
+    for i, page1 in enumerate(update):
+        for j in range(i+1, len(update)):
+            page2=update[j]
+            if not is_in_order(page1, page2):
+                update_in_correct_order=False
                 break
-        if not ordering_correct:
+        if not update_in_correct_order:
             break
-    if ordering_correct:
-        correct_order.append(proposed_ordering)
+    if update_in_correct_order:
+        correct_updates.append(update)
     else:
-        incorrect_order.append(proposed_ordering)
+        incorrect_updates.append(update)
 
-def sort_ordering(ordering):
-    if len(ordering)==1:
-        return ordering
+def sort_update(update):
+    #base case
+    if len(update)==1:
+        return update
     #find smallest value
-    prev_value=ordering[0]
-    for value in ordering:
+    prev_value=update[0]
+    for value in update:
         if not is_in_order(prev_value, value):
             prev_value=value
     #recursion part
-    ordering.pop(ordering.index(prev_value))
-    return [prev_value]+sort_ordering(ordering)
+    update.pop(update.index(prev_value))
+    return [prev_value]+sort_update(update)
 
 def sol1():
     c=0
-    for o in correct_order:
-        mid=len(o)//2
-        c+=o[mid]
+    for update in correct_updates:
+        mid=len(update)//2
+        c+=update[mid]
     return c
 
 def sol2():
     c=0
-    for o in incorrect_order:
-        mid=len(o)//2
-        original_length=len(o)
-        new_ordering=sort_ordering(o)
-        c+=new_ordering[mid]
+    for update in incorrect_updates:
+        mid=len(update)//2
+        sorted_update=sort_update(update)
+        c+=sorted_update[mid]
     return c
 
 print(f"Solution1: {sol1()}")
