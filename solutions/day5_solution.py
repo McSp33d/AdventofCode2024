@@ -1,14 +1,12 @@
 from utils import *
 
-data_ordering=read("../input/day5_input1.txt")
+given_page_orders=readIntLists("../input/day5_input1.txt", "|")
 
 #key smaller than value
 page_order={}
 
-for line in data_ordering:
-    num1, num2= line.split("|")
-    num1=int(num1)
-    num2=int(num2)
+for line in given_page_orders:
+    num1, num2 = line
     if num1 in page_order:
         page_order[num1].append(num2)
     else:
