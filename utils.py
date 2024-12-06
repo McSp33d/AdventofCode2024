@@ -3,6 +3,9 @@ def read(filename):
         return [line.strip() for line in f.readlines()]
 
 
+def readMap(filename):
+    return [[c for c in line] for line in read("../input/day6_input")]
+
 def readIntLists(filename, delimiter=" "):
     data=readWords(filename, delimiter)
     output=[]
@@ -44,6 +47,18 @@ def getIfInside(data, pos, return_char=""):
         return data[y][x]
     else:
         return return_char
+
+
+def isInside(map, pos):
+    if 0 <= pos[0] < len(map[1]) and 0 <= pos[1] < len(map):
+        return True
+    return False
+
+
+def setIfInside(map, pos, char):
+    if isInside(map, pos):
+        map[pos[1]][pos[0]] = char
+
 
 
 def searchInDirection(data, word, pos, direction):
